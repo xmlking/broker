@@ -8,9 +8,8 @@ import (
 	"cloud.google.com/go/pubsub"
 	"github.com/rs/zerolog/log"
 
-    "github.com/xmlking/broker/pubsub"
+	"github.com/xmlking/broker/pubsub"
 )
-
 
 func main() {
 	broker.DefaultBroker = broker.NewBroker()

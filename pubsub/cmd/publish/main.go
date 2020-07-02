@@ -8,7 +8,6 @@ import (
 	"github.com/xmlking/broker/pubsub"
 )
 
-
 func main() {
 	// broker.DefaultBroker = broker.NewBroker(broker.ProjectID("my-project-id")); // use cfg.pubsub.ProjectID
 	broker.DefaultBroker = broker.NewBroker()
