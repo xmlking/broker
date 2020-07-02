@@ -1,40 +1,3 @@
-# Broker
-Framework for building async µServices 
-
-## Usage
-
-### Publisher
-
-```go
-package main
-
-import (
-	"cloud.google.com/go/pubsub"
-	"github.com/google/uuid"
-	"github.com/rs/zerolog/log"
-
-	"github.com/xmlking/grpc-starter-kit/xmlking/broker/pubsub"
-)
-
-
-func main() {
-	broker.DefaultBroker = broker.NewBroker()
-
-	msg := pubsub.Message{
-		ID:         uuid.New().String(),
-		Data:       []byte("ABC€"),
-		Attributes: map[string]string{"sumo": "demo"},
-	}
-
-	if err := broker.Publish("my-topic", &msg); err != nil {
-		log.Error().Err(err).Send()
-	}
-}
-```
-
-### Subscriber
-
-```go
 package main
 
 import (
@@ -45,14 +8,15 @@ import (
 	"cloud.google.com/go/pubsub"
 	"github.com/rs/zerolog/log"
 
-	"github.com/xmlking/grpc-starter-kit/xmlking/broker/pubsub"
+	"github.com/xmlking/broker/pubsub"
 )
 
 func main() {
 	broker.DefaultBroker = broker.NewBroker()
 
 	myHandler := func(ctx context.Context, msg *pubsub.Message) error {
-
+		//md, _ := metadata.FromContext(ctx)
+		//log.Info().Interface("md", md).Send()
 		log.Info().Interface("event.Message.ID", msg.ID).Send()
 		log.Info().Interface("event.Message.Attributes", msg.Attributes).Send()
 		log.Info().Interface("event.Message.Data", msg.Data).Send()
@@ -62,9 +26,9 @@ func main() {
 		return nil
 	}
 
-	err := broker.Subscribe("my-topic", myHandler, broker.Queue("my-topic-sub"))
+	err := broker.Subscribe("ingestion-in-dev", myHandler, broker.Queue("ingestion-in-dev"))
 	if err != nil {
-		log.Error().Err(err).Msg("Failed subscribing to Topic: my-topic")
+		log.Error().Err(err).Msg("Failed subscribing to Topic: ingestion-in-dev")
 	}
 
 	ch := make(chan os.Signal, 1)
@@ -76,6 +40,3 @@ func main() {
 		log.Fatal().Err(err).Msg("Unexpected disconnect error")
 	}
 }
-```
-
-
