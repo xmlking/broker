@@ -13,7 +13,7 @@ import (
 	"github.com/google/uuid"
 	"github.com/rs/zerolog/log"
 
-	"github.com/xmlking/grpc-starter-kit/xmlking/broker/pubsub"
+        "github.com/xmlking/broker/pubsub"
 )
 
 
@@ -45,7 +45,7 @@ import (
 	"cloud.google.com/go/pubsub"
 	"github.com/rs/zerolog/log"
 
-	"github.com/xmlking/grpc-starter-kit/xmlking/broker/pubsub"
+        "github.com/xmlking/broker/pubsub"
 )
 
 func main() {
